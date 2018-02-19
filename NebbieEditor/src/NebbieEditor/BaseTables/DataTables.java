@@ -28,6 +28,7 @@ public class DataTables {
     public double MaxXPAdjust = 1.0;
     public double GoldXPAdjust = 1.0;
     public int Columns = 60;
+    public RENDERTYPE RenderType = RENDERTYPE.NOANSI;
     
     public boolean fillTables(String baseFolder) {
         Path path = Paths.get(baseFolder, "MUD.ini");
@@ -41,7 +42,6 @@ public class DataTables {
     
     public boolean readIniFile(File iniFile) throws ParseException {
         INISECTION section = INISECTION.UNDEFINED;
-        RENDERTYPE renderType = RENDERTYPE.NOANSI;
         BufferedReader br = null;
         try {
             br = new BufferedReader(new FileReader(iniFile));
@@ -116,7 +116,7 @@ public class DataTables {
                                     Columns = Integer.parseInt(value);
                                     break;
                                 case "render":
-                                    
+                                    RenderType = RENDERTYPE.decode(value);
                                     break;
                                 default:
                                     LOG.log(Level.WARNING,"Ignored variable {0}",name);
